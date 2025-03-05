@@ -23,7 +23,7 @@ pipeline {
                                 echo "📌 Construction de l'image Docker pour ${service}..."
                                 docker build -t ${env.IMAGE_PREFIX}/${service}:latest .
                                 echo "📌 Push de l'image sur DockerHub..."
-                                docker login -u "mamadouba634" -p "momoba2000"
+                                docker login -u "mamadoubadev" -p "momoba2000"
                                 docker push ${env.IMAGE_PREFIX}/${service}:latest
                             """
                         }
