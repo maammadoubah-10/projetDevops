@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/maammadoubah-10/gestion_etbalissementt.git'
+                git branch: 'main', url: 'https://github.com/maammadoubah-10/projetDevops.git'
             }
         }
 
