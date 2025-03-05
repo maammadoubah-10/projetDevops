@@ -13,7 +13,8 @@ pipeline {
         }
 
         stage('Build & Push Docker Images') {
-            steps {
+            steps { git push -u origine main
+
                 script {
                     def services = ['ms-classes', 'ms-professeurs', 'ms-emplois', 'ms-cours', 'ms-etudiants']
                     for (service in services) {
