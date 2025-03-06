@@ -2,15 +2,15 @@ pipeline {
     agent any 
 
     environment {
-        IMAGE_PREFIX = "mamadoubadev"  // Remplace par ton DockerHub username
-        DOCKER_CREDENTIALS_ID = "docker-hub-credentials"  // ID des credentials Jenkins pour DockerHub
+        IMAGE_PREFIX = "mamadouba634"  // Ton DockerHub username
+        DOCKER_CREDENTIALS_ID = "docker-hub-credentials"  // ID des credentials dans Jenkins
     }
 
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/maammadoubah-10/projetDevops.git'
-                sh 'git pull origin main' // S'assurer que le code est à jour
+                sh 'git pull origin main' // Vérifier que le code est bien à jour
             }
         }
 
@@ -19,16 +19,19 @@ pipeline {
                 script {
                     def services = ['ms-classes', 'ms-professeurs', 'ms-emplois', 'ms-cours', 'ms-etudiants']
 
+                    // Utilisation des credentials Jenkins pour DockerHub
                     withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, 
-                                                      usernameVariable: 'DOCKER_USER', 
-                                                      passwordVariable: 'DOCKER_PASS')]) {
+                                                      usernameVariable: 'mamadouba634', 
+                                                      passwordVariable: 'momoba2000')]) {
                         for (service in services) {
                             dir("devops/${service}") {
                                 sh """
                                     echo "📌 Construction de l'image Docker pour ${service}..."
                                     docker build -t ${env.IMAGE_PREFIX}/${service}:latest .
-                                    echo "📌 Login à DockerHub..."
+
+                                    echo "📌 Connexion à DockerHub..."
                                     echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+
                                     echo "📌 Push de l'image sur DockerHub..."
                                     docker push ${env.IMAGE_PREFIX}/${service}:latest
                                 """
